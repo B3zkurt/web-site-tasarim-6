@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Furkan</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Righteous|Ubuntu+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/main.css" type="text/css">
+  </head>
+  <body>
+  <div id="particles-js"></div>
+  <div class="container">
+    <div class="center">
+      <div class="row d-flex flex-wrap align-items-center">
+        <div class="col-md-5">
+          <img class="image img-fluid" src="https://i.hizliresim.com/scwe2qu.png" alt="bozkurt">
+        </div>
+        <div class="col-md">
+          <p class="header1">Furkan</p>
+          <p class="header3"></p>
+          <p class="header2">Cyber Security / Web Security / Software</p>
+          <a class="link1" href="https://instagram.com/b3zkurt" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a class="link1" href="https://www.youtube.com/channel/UCGjuanRklS0SOVGSfoAIc6A" data-toggle="tooltip" data-placement="bottom" title="youtube"><i class="fab fa-youtube"></i></a>
+          <a class="link1" href="https://github.com/b3zkurt" data-toggle="tooltip" data-placement="bottom" title="Github"><i class="fab fa-github"></i></a>
+          <a class="link1" href="https://www.linkedin.com/" data-toggle="tooltip" data-placement="bottom" title="Linkedin"><i class="fab fa-linkedin"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="js/main.js"></script>
+  </body>
+  <script>
+    ! function() {
+
+        // Encapsulation method , Reduce file size after compression 
+        function get_attribute(node, attr, default_value) {
+
+            return node.getAttribute(attr) || default_value;
+        }
+        // Encapsulation method , Reduce file size after compression 
+        function get_by_tagname(name) {
+
+            return document.getElementsByTagName(name);
+        }
+        // Get configuration parameters 
+        function get_config_option() {
+
+            var scripts = get_by_tagname("script"),
+                script_len = scripts.length,
+                script = scripts[script_len - 1]; // Currently loaded script
+            return {
+                l: script_len, // length , Used to generate id use 
+                z: get_attribute(script, "zIndex", -5), //z-index
+                o: get_attribute(script, "opacity", 1.5), //opacity
+                c: get_attribute(script, "color", "220,20,60"), //color
+                n: get_attribute(script, "count", 270) //count
+            };
+        }
+        // Set up canvas Height and width of 
+        function set_canvas_size() {
+
+            canvas_width = the_canvas.width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+                canvas_height = the_canvas.height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+        }
+
+        // Drawing process 
+        function draw_canvas() {
+
+            context.clearRect(0, 0, canvas_width, canvas_height);
+            // Random line and current position joint array 
+            var e, i, d, x_dist, y_dist, dist; // Temporary node 
+            // Traversing every point 
+            random_lines.forEach(function(r, idx) {
+
+                r.x += r.xa,
+                    r.y += r.ya, // Move 
+                    r.xa *= r.x > canvas_width || r.x < 0 ? -1 : 1,
+                    r.ya *= r.y > canvas_height || r.y < 0 ? -1 : 1, // We hit the border , Reverse rebound 
+                    context.fillRect(r.x - 0.5, r.y - 0.5, 1, 1); // Draw a width and height of 1 The point of 
+                // From the next point 
+                for (i = idx + 1; i < all_array.length; i++) {
+                    e = all_array[i];
+                    // Not the current point 
+                    if (null !== e.x && null !== e.y) {
+                        x_dist = r.x - e.x, //x Shaft distance  l
+                            y_dist = r.y - e.y, //y Shaft distance  n
+                            dist = x_dist * x_dist + y_dist * y_dist; // Total distance , m
+                        dist < e.max && (e === current_point && dist >= e.max / 2 && (r.x -= 0.03 * x_dist, r.y -= 0.03 * y_dist), // Accelerate as you approach 
+                            d = (e.max - dist) / e.max,
+                            context.beginPath(),
+                            context.lineWidth = d / 2,
+                            context.strokeStyle = "rgba(" + config.c + "," + (d + 0.2) + ")",
+                            context.moveTo(r.x, r.y),
+                            context.lineTo(e.x, e.y),
+                            context.stroke());
+                    }
+                }
+            }), frame_func(draw_canvas);
+        }
+        // Create a canvas , To add to body in 
+        var the_canvas = document.createElement("canvas"), // canvas 
+            config = get_config_option(), // To configure 
+            canvas_id = "c_n" + config.l, //canvas id
+            context = the_canvas.getContext("2d"),
+            canvas_width, canvas_height,
+            frame_func = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function(func) {
+
+                window.setTimeout(func, 1000 / 45);
+            },
+            random = Math.random,
+            current_point = {
+                x: null, // The current mouse x
+                y: null, // The current mouse y
+                max: 40000
+            },
+            all_array;
+        the_canvas.id = canvas_id;
+        the_canvas.style.cssText = "position:fixed;top:0;left:0;z-index:" + config.z + ";opacity:" + config.o;
+        get_by_tagname("body")[0].appendChild(the_canvas);
+        // Initialize canvas size 
+
+        set_canvas_size(), window.onresize = set_canvas_size;
+        // At that time, the mouse position was stored , On the way out , Release current location information 
+        window.onmousemove = function(e) {
+
+            e = e || window.event, current_point.x = e.clientX, current_point.y = e.clientY;
+        }, window.onmouseout = function() {
+
+            current_point.x = null, current_point.y = null;
+        };
+        // Random generation config.n Line location information 
+        for (var random_lines = [], i = 0; config.n > i; i++) {
+            var x = random() * canvas_width, // Random position 
+                y = random() * canvas_height,
+                xa = 2 * random() - 1, // Random direction of motion 
+                ya = 2 * random() - 1;
+            random_lines.push({
+                x: x,
+                y: y,
+                xa: xa,
+                ya: ya,
+                max: 8000 // Adhesion distance 
+            });
+        }
+        all_array = random_lines.concat([current_point]);
+        //0.1 Draw in seconds 
+        setTimeout(function() {
+
+            draw_canvas();
+        }, 100);
+    }();
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script type="text/javascript" color="143, 252, 33S" opacity='1' zIndex="-2" count="200" src="/js/canvas-nest.js"></script>
+</section>
+<section class="underconstruction center ">
+    <div class="header3">
+    </div>
+</body>
+</script>
+</html>
